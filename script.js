@@ -30,7 +30,6 @@ async function onMapClick(e) {
         cityJson.principalSubdivision
     } - ${cityJson.countryName}`;
 
-    // Conteúdo do Popup
     const popupContent = `
                 <p>Verificar o ar de <strong>${city}</strong>?</p>
                 <button id="verify-button" class="popup-button">Verificar qualidade do ar</button>
@@ -38,8 +37,6 @@ async function onMapClick(e) {
 
     marker.bindPopup(popupContent).openPopup();
 
-    // Adicionamos o listener diretamente no botão dentro do popup
-    // Isso é mais robusto pois o popup é recriado a cada clique
     document.getElementById("verify-button").addEventListener("click", () => {
         const locationData = {
             coords: {
@@ -53,12 +50,9 @@ async function onMapClick(e) {
             },
         };
 
-        // ATENÇÃO: Verifique o nome da chave que sua outra página espera.
-        // No seu script anterior era 'locationData', então mantive.
         localStorage.setItem("locationData", JSON.stringify(locationData));
 
-        // Navega para a página de detalhes
-        window.location.href = "/details-page/details.html"; // Ajuste o caminho se necessário
+        window.location.href = "/details-page/details.html";
     });
 }
 
@@ -69,7 +63,7 @@ async function initialize() {
         crd = pos.coords;
     } catch (err) {
         console.warn(`ERROR(${err.code}): ${err.message}`);
-        crd = { latitude: -23.4435, longitude: -51.9353 }; // Coordenadas de Maringá/Sarandi
+        crd = { latitude: -23.4435, longitude: -51.9353 };
     } finally {
         map = L.map("map").setView([crd.latitude, crd.longitude], 13);
         L.tileLayer(
@@ -81,7 +75,6 @@ async function initialize() {
             }
         ).addTo(map);
 
-        // O seu script já manipula o loader, então esta linha é crucial
         document.querySelector(".loader").style.display = "none";
 
         map.on("click", onMapClick);

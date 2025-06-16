@@ -42,8 +42,6 @@ async function loadAirQualityData() {
     grid.style.opacity = "0.5";
     loader.textContent = "Buscando dados...";
 
-    // 1. Obter e processar os dados do localStorage
-    // CORREÇÃO APLICADA AQUI: mudando de 'selectedCoords' para 'locationData'
     const locationDataString = localStorage.getItem("locationData");
 
     if (!locationDataString) {
@@ -55,7 +53,6 @@ async function loadAirQualityData() {
 
     const locationData = JSON.parse(locationDataString);
 
-    // Esta sua verificação agora funcionará corretamente!
     if (!locationData.coords || !locationData.location) {
         console.error("O formato dos dados no localStorage é inválido.");
         document.body.innerHTML =
@@ -66,12 +63,10 @@ async function loadAirQualityData() {
     const { lat, lng } = locationData.coords;
     const { city, state } = locationData.location;
 
-    // Atualiza o nome da localidade na tela
     const locationNameElement = document.getElementById("location-name");
     locationNameElement.textContent = `${city}, ${state}`;
 
-    // 2. Fazer a chamada para a API do OpenWeather
-    const apiKey = "53d067b292d85dfd75c5b0604139fc74"; // Lembre-se de proteger sua chave em um ambiente de produção
+    const apiKey = "53d067b292d85dfd75c5b0604139fc74"; // Não há um backend, portanto a chave de API está no lado do cliente, apesar de ser uma má prática
     const url = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lng}&appid=${apiKey}&units=metric`;
 
     try {
@@ -84,7 +79,6 @@ async function loadAirQualityData() {
         const airDataObject = await response.json();
         const airDataGases = airDataObject.list[0].components;
 
-        // 3. Itera sobre os componentes e atualiza cada card
         for (const [key, value] of Object.entries(airDataGases)) {
             const bodyElement = document.getElementById(`${key}-body`);
             const riskBarElement = document.getElementById(`${key}-risk-bar`);
