@@ -1,50 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-		<link rel="icon" type="image/x-icon" href="favicon.ico" />
-		<link rel="stylesheet" href="../styles.css" />
-		<link rel="stylesheet" href="details-styles.css" />
-		<title>Details</title>
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <link rel="stylesheet" href="../styles.css" />
+        <link rel="stylesheet" href="details-styles.css" />
+        <title>Details</title>
 
-		<script src="details-script.js" defer></script>
-	</head>
-	<body>
-		<main class="details-card-container">
-			<div class="details-card details-card-alert" id="co">
-				<p>CO - Monóxido de carbono</p>
-				<p id="co-value"></p>
-			</div>
-			<div class="details-card details-card-warning" id="nh3">
-				<p>NH3 - Amônia</p>
-				<p id="nh3-value"></p>
-			</div>
-			<div class="details-card details-card-warning" id="no">
-				<p>NO - Monóxido de nitrogênio</p>
-				<p id="no-value"></p>
-			</div>
-			<div class="details-card details-card-warning" id="no2">
-				<p>NO2 - Dióxido de nitrogênio</p>
-				<p id="no2-value"></p>
-			</div>
-			<div class="details-card details-card-good" id="o3">
-				<p>O3 - Ozônio</p>
-				<p id="o3-value"></p>
-			</div>
-			<div class="details-card details-card-good" id="pm2_5">
-				<p>PM2.5 - Material particulado < 2,5μm</p>
-				<p id="pm2_5-value"></p>
-			</div>
-			<div class="details-card details-card-good" id="pm10">
-				<p>PM10 - Material particulado < 10μm</p>
-				<p id="pm10-value"></p>
-			</div>
-			<div class="details-card details-card-good" id="so2">
-				<p>SO₂ - Dióxido de enxofre</p>
-				<p id="so2-value"></p>
-			</div>
-		</main>
-	</body>
+        <script src="details-script.js" defer></script>
+    </head>
+    <body>
+        <div class="main-container">
+            <header class="header">
+                <h1>Painel de Qualidade do Ar</h1>
+                <p>Dados em tempo real para sua localidade</p>
+                <div class="location-chip">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span id="location-name">Carregando...</span>
+                </div>
+            </header>
+
+            <main>
+                <div id="pollutants-grid" class="pollutants-grid">
+                    <div
+                        class="pollutant-card"
+                        title="Monóxido de Carbono: Gás incolor e inodoro, perigoso em altas concentrações."
+                    >
+                        <div class="card-header">
+                            <i class="fa-solid fa-smog icon"></i>
+                            <h3>Monóxido de Carbono</h3>
+                        </div>
+                        <div class="card-body" id="co-body">
+                            <span class="value">-</span>
+                        </div>
+                        <div class="risk-meter">
+                            <div class="risk-meter-bar" id="co-risk-bar"></div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="pollutant-card"
+                        title="Amônia: Gás com cheiro forte, comum em atividades agrícolas."
+                    >
+                        <div class="card-header">
+                            <i class="fa-solid fa-flask-vial icon"></i>
+                            <h3>Amônia</h3>
+                        </div>
+                        <div class="card-body" id="nh3-body">
+                            <span class="value">-</span>
+                        </div>
+                        <div class="risk-meter">
+                            <div class="risk-meter-bar" id="nh3-risk-bar"></div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="pollutant-card"
+                        title="Monóxido de Nitrogênio: Contribui para a formação de chuva ácida e ozônio."
+                    >
+                        <div class="card-header">
+                            <i class="fa-solid fa-wind icon"></i>
+                            <h3>Monóxido de Nitrogênio</h3>
+                        </div>
+                        <div class="card-body" id="no-body">
+                            <span class="value">-</span>
+                        </div>
+                        <div class="risk-meter">
+                            <div class="risk-meter-bar" id="no-risk-bar"></div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="pollutant-card"
+                        title="Dióxido de Nitrogênio: Gás associado à queima de combustíveis."
+                    >
+                        <div class="card-header">
+                            <i class="fa-solid fa-industry icon"></i>
+                            <h3>Dióxido de Nitrogênio</h3>
+                        </div>
+                        <div class="card-body" id="no2-body">
+                            <span class="value">-</span>
+                        </div>
+                        <div class="risk-meter">
+                            <div class="risk-meter-bar" id="no2-risk-bar"></div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="pollutant-card"
+                        title="Ozônio: Poluente secundário, irritante para o sistema respiratório."
+                    >
+                        <div class="card-header">
+                            <i class="fa-solid fa-sun icon"></i>
+                            <h3>Ozônio</h3>
+                        </div>
+                        <div class="card-body" id="o3-body">
+                            <span class="value">-</span>
+                        </div>
+                        <div class="risk-meter">
+                            <div class="risk-meter-bar" id="o3-risk-bar"></div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="pollutant-card"
+                        title="Material Particulado < 2.5µm: Partículas finas que podem penetrar profundamente nos pulmões."
+                    >
+                        <div class="card-header">
+                            <i class="fa-solid fa-lungs icon"></i>
+                            <h3>PM2.5</h3>
+                        </div>
+                        <div class="card-body" id="pm2_5-body">
+                            <span class="value">-</span>
+                        </div>
+                        <div class="risk-meter">
+                            <div
+                                class="risk-meter-bar"
+                                id="pm2_5-risk-bar"
+                            ></div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="pollutant-card"
+                        title="Material Particulado < 10µm: Partículas inaláveis que podem causar problemas respiratórios."
+                    >
+                        <div class="card-header">
+                            <i class="fa-solid fa-disease icon"></i>
+                            <h3>PM10</h3>
+                        </div>
+                        <div class="card-body" id="pm10-body">
+                            <span class="value">-</span>
+                        </div>
+                        <div class="risk-meter">
+                            <div
+                                class="risk-meter-bar"
+                                id="pm10-risk-bar"
+                            ></div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="pollutant-card"
+                        title="Dióxido de Enxofre: Gás emitido por vulcões e processos industriais."
+                    >
+                        <div class="card-header">
+                            <i class="fa-solid fa-fire icon"></i>
+                            <h3>Dióxido de Enxofre</h3>
+                        </div>
+                        <div class="card-body" id="so2-body">
+                            <span class="value">-</span>
+                        </div>
+                        <div class="risk-meter">
+                            <div class="risk-meter-bar" id="so2-risk-bar"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="loader"></div>
+            </main>
+        </div>
+    </body>
 </html>
