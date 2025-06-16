@@ -52,7 +52,7 @@ async function onMapClick(e) {
 
         localStorage.setItem("locationData", JSON.stringify(locationData));
 
-        window.location.href = "/details-page/details.html";
+        window.location.href = "./details.html";
     });
 }
 
